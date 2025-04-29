@@ -1,4 +1,4 @@
-import { OrganizationNotFoundException } from "@/exceptions/organization-not-found";
+import { ResourceNotFoundException } from "@/exceptions/resource-not-found-exception";
 import { InMemoryOrganizationsRepository } from "@/repositories/in-memory/in-memory-organizations-repository";
 import { InMemoryPetsRepository } from "@/repositories/in-memory/in-memory-pets-repository";
 import { CreatePetService } from "./create";
@@ -49,6 +49,6 @@ describe("Create Pet Service", () => {
       size: "SMALL",
       independence: "LOW",
       organizationId: "non-existent-organization-id",
-    })).rejects.toThrow(OrganizationNotFoundException);
+    })).rejects.toThrow(ResourceNotFoundException);
   });
 });

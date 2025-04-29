@@ -1,4 +1,4 @@
-import { OrganizationNotFoundException } from "@/exceptions/organization-not-found";
+import { ResourceNotFoundException } from "@/exceptions/resource-not-found-exception";
 import type { OrganizationsRepository } from "@/repositories/organizations-repository";
 import type { PetsRepository } from "@/repositories/pets-repository";
 import type {
@@ -37,7 +37,7 @@ export class CreatePetService {
 		);
 
 		if (!organization) {
-			throw new OrganizationNotFoundException(data.organizationId);
+			throw new ResourceNotFoundException("Organization");
 		}
 
 		const pet = await this.petsRepository.create(data);
