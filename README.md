@@ -26,7 +26,7 @@ A RESTful API for pet adoption services, connecting people with pets available f
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/nicholascostadev/find-a-friend-api.git
 cd find-a-friend-api
 ```
 
