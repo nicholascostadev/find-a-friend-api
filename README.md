@@ -4,7 +4,7 @@
 - [ ] It must be possible to list all pets available for adoption in a city
 - [ ] It must be possible to filter pets by their characteristics
 - [ ] It must be possible to view details of a pet for adoption
-- [ ] It must be possible to register as an ORG
+- [x] It must be possible to register as an ORG
 - [ ] It must be possible to login as an ORG
 
 ### Business Rules

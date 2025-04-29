@@ -3,7 +3,7 @@ import fastify from "fastify";
 import { env } from "./lib/env";
 
 const app = fastify({
-  logger: env.NODE_ENV === "development" ? true : false,
+  logger: env.NODE_ENV === "development"
 })
 
 app.listen({ port: env.PORT }, (err) => {

@@ -5,7 +5,9 @@
   "scripts": {
     "build": "tsup ./src/app.ts",
     "start:dev": "tsx watch src/app.ts",
-    "start": "node dist/app.js"
+    "start": "node dist/app.js",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "keywords": [],
   "author": "",
@@ -17,10 +19,14 @@
     "prisma": "6.7.0",
     "tsup": "8.4.0",
     "tsx": "4.19.4",
-    "typescript": "5.8.3"
+    "typescript": "5.8.3",
+    "vite": "6.3.3",
+    "vite-tsconfig-paths": "5.1.4",
+    "vitest": "3.1.2"
   },
   "dependencies": {
     "@prisma/client": "6.7.0",
+    "bcryptjs": "3.0.2",
     "dotenv": "16.5.0",
     "fastify": "5.3.2",
     "zod": "3.24.3"
