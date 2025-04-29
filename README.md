@@ -5,7 +5,7 @@
 - [x] It must be possible to filter pets by their characteristics
 - [x] It must be possible to view details of a pet for adoption
 - [x] It must be possible to register as an ORG
-- [ ] It must be possible to login as an ORG
+- [x] It must be possible to login as an ORG
 
 ### Business Rules
 

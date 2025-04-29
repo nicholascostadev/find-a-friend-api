@@ -1,4 +1,5 @@
 import { InMemoryPetsRepository } from "@/repositories/in-memory/in-memory-pets-repository";
+import { PetAge, PetEnergy, PetIndependence, PetSize } from "@prisma/client";
 import { ListPetsService } from "./list";
 
 describe("Create Pet Service", () => {
@@ -11,183 +12,190 @@ describe("Create Pet Service", () => {
 	});
 
 	it("should be able to list all pets by city when has only one pet", async () => {
-    const pet = await petsRepository.create({
-      name: "John Doe",
-      city: "São Paulo",
-      age: "PUPPY",
-      energy: "LOW",
-      size: "SMALL",
-      independence: "LOW",
-      organizationId: "1",
-    });
+		const pet = await petsRepository.create({
+			name: "John Doe",
+			city: "São Paulo",
+			age: "PUPPY",
+			energy: "LOW",
+			size: "SMALL",
+			independence: "LOW",
+			organizationId: "1",
+		});
 
 		const { pets } = await sut.execute({
 			city: "São Paulo",
 		});
 
-		expect(pets).toEqual([
-			expect.objectContaining({ id: pet.id }),
-		]);
+		expect(pets).toEqual([expect.objectContaining({ id: pet.id })]);
 	});
 
-  it("should be able to list all pets by city when has more than one pet", async () => {
-    const pet = await petsRepository.create({
-      name: "John Doe",
-      city: "São Paulo",
-      age: "PUPPY",
-      energy: "LOW",  
-      size: "SMALL",
-      independence: "LOW",
-      organizationId: "1",
-    });
+	it("should be able to list all pets by city when has more than one pet", async () => {
+		const pet = await petsRepository.create({
+			name: "John Doe",
+			city: "São Paulo",
+			age: "PUPPY",
+			energy: "LOW",
+			size: "SMALL",
+			independence: "LOW",
+			organizationId: "1",
+		});
 
-    await petsRepository.create({
-      name: "John Doe",
-      city: "Rio de Janeiro",
-      age: "PUPPY",
-      energy: "LOW",  
-      size: "SMALL",
-      independence: "LOW",
-      organizationId: "1",
-    });
+		await petsRepository.create({
+			name: "John Doe",
+			city: "Rio de Janeiro",
+			age: "PUPPY",
+			energy: "LOW",
+			size: "SMALL",
+			independence: "LOW",
+			organizationId: "1",
+		});
 
-    const { pets } = await sut.execute({
-      city: "São Paulo",
-    });
+		const { pets } = await sut.execute({
+			city: "São Paulo",
+		});
 
-    expect(pets).toHaveLength(1)
-    expect(pets).toEqual([
-      expect.objectContaining({ id: pet.id }),
-    ]);
-  });
+		expect(pets).toHaveLength(1);
+		expect(pets).toEqual([expect.objectContaining({ id: pet.id })]);
+	});
 
-  it("should be able to list all pets by city and size", async () => {
-    await petsRepository.create({
-      name: "John Doe",
-      city: "São Paulo",
-      age: "PUPPY",
-      energy: "LOW",
-      size: "SMALL",
-      independence: "LOW",
-      organizationId: "1",
-    });
+	it("should not list adopted pets", async () => {
+		await petsRepository.create({
+			name: "John Doe",
+			city: "São Paulo",
+			age: PetAge.PUPPY,
+			energy: PetEnergy.LOW,
+			size: PetSize.SMALL,
+			independence: PetIndependence.LOW,
+			organizationId: "1",
+			adopted_at: new Date(),
+		});
 
-    const pet2 = await petsRepository.create({
-      name: "John Doe",
-      city: "São Paulo",
-      age: "PUPPY",
-      energy: "LOW",
-      size: "MEDIUM",
-      independence: "LOW",
-      organizationId: "1",
-    });
+		const { pets } = await sut.execute({
+			city: "São Paulo",
+		});
 
-    const { pets } = await sut.execute({
-      city: "São Paulo",
-      petSize: "MEDIUM",
-    });
+		expect(pets).toHaveLength(0);
+	});
 
-    expect(pets).toHaveLength(1)
-    expect(pets).toEqual([
-      expect.objectContaining({ id: pet2.id }),
-    ]);
-  });
+	it("should be able to list all pets by city and size", async () => {
+		await petsRepository.create({
+			name: "John Doe",
+			city: "São Paulo",
+			age: "PUPPY",
+			energy: "LOW",
+			size: "SMALL",
+			independence: "LOW",
+			organizationId: "1",
+		});
 
-  it("should be able to list all pets by city and energy", async () => {
-   await petsRepository.create({
-      name: "John Doe",
-      city: "São Paulo",
-      age: "PUPPY", 
-      energy: "LOW",
-      size: "SMALL",
-      independence: "LOW",
-      organizationId: "1",
-    });
-    
-    const pet2 = await petsRepository.create({
-      name: "John Doe",
-      city: "São Paulo",
-      age: "PUPPY",
-      energy: "HIGH",
-      size: "SMALL",
-      independence: "LOW",
-      organizationId: "1",
-    });
+		const pet2 = await petsRepository.create({
+			name: "John Doe",
+			city: "São Paulo",
+			age: "PUPPY",
+			energy: "LOW",
+			size: "MEDIUM",
+			independence: "LOW",
+			organizationId: "1",
+		});
 
-    const { pets } = await sut.execute({
-      city: "São Paulo",
-      petEnergy: "HIGH",
-    });
+		const { pets } = await sut.execute({
+			city: "São Paulo",
+			petSize: "MEDIUM",
+		});
 
-    expect(pets).toHaveLength(1)
-    expect(pets).toEqual([
-      expect.objectContaining({ id: pet2.id }),
-    ]);
-  });
+		expect(pets).toHaveLength(1);
+		expect(pets).toEqual([expect.objectContaining({ id: pet2.id })]);
+	});
 
-  it("should be able to list all pets by city and independence", async () => {
-    await petsRepository.create({
-      name: "John Doe",
-      city: "São Paulo",
-      age: "PUPPY",
-      energy: "LOW",
-      size: "SMALL",
-      independence: "LOW",
-      organizationId: "1",
-    });
+	it("should be able to list all pets by city and energy", async () => {
+		await petsRepository.create({
+			name: "John Doe",
+			city: "São Paulo",
+			age: "PUPPY",
+			energy: "LOW",
+			size: "SMALL",
+			independence: "LOW",
+			organizationId: "1",
+		});
 
-    const pet2 = await petsRepository.create({
-      name: "John Doe",
-      city: "São Paulo",
-      age: "PUPPY",
-      energy: "LOW",
-      size: "SMALL",
-      independence: "HIGH",
-      organizationId: "1",
-    });   
+		const pet2 = await petsRepository.create({
+			name: "John Doe",
+			city: "São Paulo",
+			age: "PUPPY",
+			energy: "HIGH",
+			size: "SMALL",
+			independence: "LOW",
+			organizationId: "1",
+		});
 
-    const { pets } = await sut.execute({
-      city: "São Paulo",
-      petIndependence: "HIGH",
-    }); 
+		const { pets } = await sut.execute({
+			city: "São Paulo",
+			petEnergy: "HIGH",
+		});
 
-    expect(pets).toHaveLength(1)
-    expect(pets).toEqual([
-      expect.objectContaining({ id: pet2.id }),
-    ]);
-  });
+		expect(pets).toHaveLength(1);
+		expect(pets).toEqual([expect.objectContaining({ id: pet2.id })]);
+	});
 
-  it("should be able to list all pets by city, size, energy and independence", async () => {
-    await petsRepository.create({
-      name: "John Doe",
-      city: "São Paulo",
-      age: "PUPPY",
-      energy: "LOW",
-      size: "SMALL",
-      independence: "LOW",
-      organizationId: "1",    
-    });
+	it("should be able to list all pets by city and independence", async () => {
+		await petsRepository.create({
+			name: "John Doe",
+			city: "São Paulo",
+			age: "PUPPY",
+			energy: "LOW",
+			size: "SMALL",
+			independence: "LOW",
+			organizationId: "1",
+		});
 
-    const pet2 = await petsRepository.create({
-      name: "John Doe",
-      city: "São Paulo",
-      age: "PUPPY",
-      energy: "LOW",  
-      size: "SMALL",
-      independence: "HIGH",
-      organizationId: "1",
-    });
+		const pet2 = await petsRepository.create({
+			name: "John Doe",
+			city: "São Paulo",
+			age: "PUPPY",
+			energy: "LOW",
+			size: "SMALL",
+			independence: "HIGH",
+			organizationId: "1",
+		});
 
-    const { pets } = await sut.execute({
-      city: "São Paulo",
-      petSize: "SMALL",
-      petEnergy: "LOW",
-      petIndependence: "HIGH",
-    });
+		const { pets } = await sut.execute({
+			city: "São Paulo",
+			petIndependence: "HIGH",
+		});
 
-    expect(pets).toHaveLength(1)
-    expect(pets).toEqual([
-      expect.objectContaining({ id: pet2.id }),
-    ]);
-  });
+		expect(pets).toHaveLength(1);
+		expect(pets).toEqual([expect.objectContaining({ id: pet2.id })]);
+	});
+
+	it("should be able to list all pets by city, size, energy and independence", async () => {
+		await petsRepository.create({
+			name: "John Doe",
+			city: "São Paulo",
+			age: "PUPPY",
+			energy: "LOW",
+			size: "SMALL",
+			independence: "LOW",
+			organizationId: "1",
+		});
+
+		const pet2 = await petsRepository.create({
+			name: "John Doe",
+			city: "São Paulo",
+			age: "PUPPY",
+			energy: "LOW",
+			size: "SMALL",
+			independence: "HIGH",
+			organizationId: "1",
+		});
+
+		const { pets } = await sut.execute({
+			city: "São Paulo",
+			petSize: "SMALL",
+			petEnergy: "LOW",
+			petIndependence: "HIGH",
+		});
+
+		expect(pets).toHaveLength(1);
+		expect(pets).toEqual([expect.objectContaining({ id: pet2.id })]);
+	});
 });

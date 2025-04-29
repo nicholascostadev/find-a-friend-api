@@ -67,6 +67,8 @@ model Pet {
   organization   Organization? @relation(fields: [organizationId], references: [id])
   organizationId String?
 
+  adopted_at DateTime?
+
   requirements PetRequirement[]
 
   @@map("pets")
