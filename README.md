@@ -12,6 +12,6 @@
 - [x] To list pets, we must provide the city
 - [x] An ORG needs to have an address and a WhatsApp number
 - [x] A pet must be linked to an ORG
-- [ ] The user who wants to adopt will contact the ORG via WhatsApp
+- [x] The user who wants to adopt will contact the ORG via WhatsApp
 - [x] All filters, besides the city, are optional
-- [ ] For an ORG to access the application as admin, it needs to be logged in
+- [x] For an ORG to access the application as admin, it needs to be logged in

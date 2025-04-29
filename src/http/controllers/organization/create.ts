@@ -12,7 +12,6 @@ export async function createOrganizationController(
 		email: z.string().email(),
 		password: z.string(),
 		address: z.string(),
-		phone: z.string(),
 		whatsapp: z.string(),
 		zipCode: z.string(),  
 	});
