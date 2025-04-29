@@ -1,5 +1,4 @@
 import { makeCreateOrganizationService } from "@/services/factories/make-create-organization-service";
-import { CreateOrganizationService } from "@/services/organizations/create";
 import type { FastifyReply, FastifyRequest } from "fastify";
 import z from "zod";
 

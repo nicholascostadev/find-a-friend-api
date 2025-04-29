@@ -1,9 +1,9 @@
 import { Exception } from "./exception";
 
 export class InvalidCredentialsException extends Exception {
-  statusCode = 401;
+	statusCode = 401;
 
-  constructor() {
-    super("Invalid credentials");
-  }
+	constructor() {
+		super("Invalid credentials");
+	}
 }

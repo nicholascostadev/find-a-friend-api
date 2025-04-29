@@ -19,8 +19,11 @@ interface CreateOrganizationServiceResponse {
 export class CreateOrganizationService {
 	constructor(private organizationsRepository: OrganizationsRepository) {}
 
-	async execute(data: CreateOrganizationServiceRequest): Promise<CreateOrganizationServiceResponse> {
-		const organizationWithSameEmail = await this.organizationsRepository.findByEmail(data.email);
+	async execute(
+		data: CreateOrganizationServiceRequest,
+	): Promise<CreateOrganizationServiceResponse> {
+		const organizationWithSameEmail =
+			await this.organizationsRepository.findByEmail(data.email);
 
 		if (organizationWithSameEmail) {
 			throw new OrganizationWithSameEmailException();

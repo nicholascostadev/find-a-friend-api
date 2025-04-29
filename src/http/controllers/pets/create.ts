@@ -7,9 +7,8 @@ export async function createPetController(
 	request: FastifyRequest,
 	reply: FastifyReply,
 ) {
-  
-  const createPetBodySchema = z.object({
-    name: z.string(),
+	const createPetBodySchema = z.object({
+		name: z.string(),
 		city: z.string(),
 		age: z.nativeEnum(PetAge),
 		energy: z.nativeEnum(PetEnergy),
@@ -17,20 +16,21 @@ export async function createPetController(
 		independence: z.nativeEnum(PetIndependence),
 	});
 
-  const organizationId = request.user.sub;
-  const { name, city, age, energy, size, independence } = createPetBodySchema.parse(request.body);
+	const organizationId = request.user.sub;
+	const { name, city, age, energy, size, independence } =
+		createPetBodySchema.parse(request.body);
 
-  const createPetService = makeCreatePetService();
+	const createPetService = makeCreatePetService();
 
-  const { pet } = await createPetService.execute({
-    name,
-    city,
-    age,
-    energy,
-    size,
-    independence,
-    organizationId,
-  });
+	const { pet } = await createPetService.execute({
+		name,
+		city,
+		age,
+		energy,
+		size,
+		independence,
+		organizationId,
+	});
 
-  return reply.status(201).send({ pet });
+	return reply.status(201).send({ pet });
 }

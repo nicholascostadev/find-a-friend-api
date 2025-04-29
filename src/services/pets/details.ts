@@ -13,7 +13,9 @@ interface DetailsPetServiceResponse {
 export class DetailsPetService {
 	constructor(private petsRepository: PetsRepository) {}
 
-	async execute(data: DetailsPetServiceRequest): Promise<DetailsPetServiceResponse> {
+	async execute(
+		data: DetailsPetServiceRequest,
+	): Promise<DetailsPetServiceResponse> {
 		const pet = await this.petsRepository.findById(data.id);
 
 		if (!pet) {

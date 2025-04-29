@@ -1,12 +1,6 @@
 import { app } from "@/app";
 import { createOrganizationAndAuthenticate } from "@/http/tests/utils/createOrganizationAndAuthenticate";
-import {
-	type Organization,
-	PetAge,
-	PetEnergy,
-	PetIndependence,
-	PetSize,
-} from "@prisma/client";
+import { PetAge, PetEnergy, PetIndependence, PetSize } from "@prisma/client";
 import request from "supertest";
 
 describe("Create Pet (e2e)", () => {

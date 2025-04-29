@@ -1,39 +1,41 @@
 {
-  "name": "find-a-friend-api",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "build": "tsup ./src/app.ts",
-    "start:dev": "tsx watch src/app.ts",
-    "start": "node dist/app.js",
-    "test": "vitest run --project unit",
-    "test:watch": "vitest --project unit",
-    "test:e2e": "vitest run --project e2e",
-    "test:e2e:watch": "vitest --project e2e"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "devDependencies": {
-    "@biomejs/biome": "1.9.4",
-    "@types/node": "22.15.3",
-    "@types/supertest": "6.0.3",
-    "prisma": "6.7.0",
-    "tsup": "8.4.0",
-    "tsx": "4.19.4",
-    "typescript": "5.8.3",
-    "vite": "6.3.3",
-    "vite-tsconfig-paths": "5.1.4",
-    "vitest": "3.1.2"
-  },
-  "dependencies": {
-    "@fastify/jwt": "9.1.0",
-    "@prisma/client": "6.7.0",
-    "bcryptjs": "3.0.2",
-    "dotenv": "16.5.0",
-    "fastify": "5.3.2",
-    "supertest": "7.1.0",
-    "zod": "3.24.3"
-  }
+	"name": "find-a-friend-api",
+	"version": "1.0.0",
+	"main": "index.js",
+	"scripts": {
+		"build": "tsup ./src/app.ts",
+		"start:dev": "tsx watch src/app.ts",
+		"start": "node dist/app.js",
+		"test": "vitest run --project unit",
+		"test:watch": "vitest --project unit",
+		"test:e2e": "vitest run --project e2e",
+		"test:e2e:watch": "vitest --project e2e",
+		"lint": "biome check",
+		"lint:fix": "biome check --write"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"description": "",
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"@types/node": "22.15.3",
+		"@types/supertest": "6.0.3",
+		"prisma": "6.7.0",
+		"tsup": "8.4.0",
+		"tsx": "4.19.4",
+		"typescript": "5.8.3",
+		"vite": "6.3.3",
+		"vite-tsconfig-paths": "5.1.4",
+		"vitest": "3.1.2"
+	},
+	"dependencies": {
+		"@fastify/jwt": "9.1.0",
+		"@prisma/client": "6.7.0",
+		"bcryptjs": "3.0.2",
+		"dotenv": "16.5.0",
+		"fastify": "5.3.2",
+		"supertest": "7.1.0",
+		"zod": "3.24.3"
+	}
 }

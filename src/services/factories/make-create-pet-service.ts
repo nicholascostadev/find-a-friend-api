@@ -3,12 +3,12 @@ import { PrismaPetsRepository } from "@/repositories/prisma/prisma-pets-reposito
 import { CreatePetService } from "../pets/create";
 
 export function makeCreatePetService() {
-  const petsRepository = new PrismaPetsRepository();
-  const organizationsRepository = new PrismaOrganizationsRepository();
-  const createPetService = new CreatePetService(
-    organizationsRepository,
-    petsRepository,
-  );
+	const petsRepository = new PrismaPetsRepository();
+	const organizationsRepository = new PrismaOrganizationsRepository();
+	const createPetService = new CreatePetService(
+		organizationsRepository,
+		petsRepository,
+	);
 
-  return createPetService;
+	return createPetService;
 }

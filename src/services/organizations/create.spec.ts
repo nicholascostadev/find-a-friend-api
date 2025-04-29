@@ -11,9 +11,11 @@ describe("Create Organization Service", () => {
 	});
 
 	it("should be able to create an organization", async () => {
-		const createOrganizationService = new CreateOrganizationService(organizationsRepository);
+		const createOrganizationService = new CreateOrganizationService(
+			organizationsRepository,
+		);
 
-    const password = "123456";
+		const password = "123456";
 
 		const { organization } = await createOrganizationService.execute({
 			name: "John Doe",
@@ -25,25 +27,29 @@ describe("Create Organization Service", () => {
 		});
 
 		expect(organization.id).toEqual(expect.any(String));
-    expect(organization.password_hash).not.toEqual(password);
+		expect(organization.password_hash).not.toEqual(password);
 	});
 
-  it("should not be able to create an organization with same email", async () => {
-    const createOrganizationService = new CreateOrganizationService(organizationsRepository);
+	it("should not be able to create an organization with same email", async () => {
+		const createOrganizationService = new CreateOrganizationService(
+			organizationsRepository,
+		);
 
-    const password = "123456";
+		const password = "123456";
 
-    const data ={
-      name: "John Doe",
-      email: "john.doe@example.com",
-      password,
-      address: "123 Main St",
-      whatsapp: "1234567890",
-      zipCode: "1234567890",
-    }
+		const data = {
+			name: "John Doe",
+			email: "john.doe@example.com",
+			password,
+			address: "123 Main St",
+			whatsapp: "1234567890",
+			zipCode: "1234567890",
+		};
 
-    await createOrganizationService.execute(data);
+		await createOrganizationService.execute(data);
 
-    await expect(createOrganizationService.execute(data)).rejects.toThrow(OrganizationWithSameEmailException);
-  })
+		await expect(createOrganizationService.execute(data)).rejects.toThrow(
+			OrganizationWithSameEmailException,
+		);
+	});
 });

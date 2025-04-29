@@ -11,23 +11,23 @@ export class PrismaOrganizationsRepository implements OrganizationsRepository {
 		return organization;
 	}
 
-  async findById(id: string): Promise<Organization | null> {
-    const organization = await db.organization.findUnique({
-      where: {
-        id,
-      },
-    });
+	async findById(id: string): Promise<Organization | null> {
+		const organization = await db.organization.findUnique({
+			where: {
+				id,
+			},
+		});
 
-    return organization;
-  }
+		return organization;
+	}
 
-  async findByEmail(email: string) {
-    const organization = await db.organization.findUnique({
-      where: {
-        email,
-      },
-    });
+	async findByEmail(email: string) {
+		const organization = await db.organization.findUnique({
+			where: {
+				email,
+			},
+		});
 
-    return organization;
-  }
+		return organization;
+	}
 }

@@ -29,9 +29,7 @@ export default (<Environment>{
 
 		return {
 			async teardown() {
-				await db.$executeRawUnsafe(
-					`DROP SCHEMA IF EXISTS "${schema}" CASCADE`,
-				);
+				await db.$executeRawUnsafe(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`);
 
 				await db.$disconnect();
 			},

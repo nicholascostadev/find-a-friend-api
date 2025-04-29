@@ -2,7 +2,7 @@ import { PrismaOrganizationsRepository } from "@/repositories/prisma/prisma-orga
 import { CreateOrganizationService } from "../organizations/create";
 
 export function makeCreateOrganizationService() {
-  const organizationsRepository = new PrismaOrganizationsRepository();
-  
-  return new CreateOrganizationService(organizationsRepository);
+	const organizationsRepository = new PrismaOrganizationsRepository();
+
+	return new CreateOrganizationService(organizationsRepository);
 }
