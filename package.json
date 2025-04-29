@@ -1,0 +1,26 @@
+{
+  "name": "challenge-03",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsup ./src/app.ts",
+    "start:dev": "tsx watch src/app.ts",
+    "start": "node dist/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@types/node": "22.15.3",
+    "tsup": "8.4.0",
+    "tsx": "4.19.4",
+    "typescript": "5.8.3"
+  },
+  "dependencies": {
+    "dotenv": "16.5.0",
+    "fastify": "5.3.2",
+    "zod": "3.24.3"
+  }
+}
