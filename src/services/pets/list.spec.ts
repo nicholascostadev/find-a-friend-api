@@ -81,26 +81,26 @@ describe("Create Pet Service", () => {
 		await petsRepository.create({
 			name: "John Doe",
 			city: "São Paulo",
-			age: "PUPPY",
-			energy: "LOW",
-			size: "SMALL",
-			independence: "LOW",
+			age: PetAge.PUPPY,
+			energy: PetEnergy.LOW,
+			size: PetSize.SMALL,
+			independence: PetIndependence.LOW,
 			organizationId: "1",
 		});
 
 		const pet2 = await petsRepository.create({
 			name: "John Doe",
 			city: "São Paulo",
-			age: "PUPPY",
-			energy: "LOW",
-			size: "MEDIUM",
-			independence: "LOW",
+			age: PetAge.PUPPY,
+			energy: PetEnergy.LOW,
+			size: PetSize.MEDIUM,
+			independence: PetIndependence.LOW,
 			organizationId: "1",
 		});
 
 		const { pets } = await sut.execute({
 			city: "São Paulo",
-			petSize: "MEDIUM",
+			petSize: PetSize.MEDIUM,
 		});
 
 		expect(pets).toHaveLength(1);
@@ -111,26 +111,26 @@ describe("Create Pet Service", () => {
 		await petsRepository.create({
 			name: "John Doe",
 			city: "São Paulo",
-			age: "PUPPY",
-			energy: "LOW",
-			size: "SMALL",
-			independence: "LOW",
+			age: PetAge.PUPPY,
+			energy: PetEnergy.LOW,
+			size: PetSize.SMALL,
+			independence: PetIndependence.LOW,
 			organizationId: "1",
 		});
 
 		const pet2 = await petsRepository.create({
 			name: "John Doe",
 			city: "São Paulo",
-			age: "PUPPY",
-			energy: "HIGH",
-			size: "SMALL",
-			independence: "LOW",
+			age: PetAge.PUPPY,
+			energy: PetEnergy.HIGH,
+			size: PetSize.SMALL,
+			independence: PetIndependence.LOW,
 			organizationId: "1",
 		});
 
 		const { pets } = await sut.execute({
 			city: "São Paulo",
-			petEnergy: "HIGH",
+			petEnergy: PetEnergy.HIGH,
 		});
 
 		expect(pets).toHaveLength(1);
@@ -141,26 +141,26 @@ describe("Create Pet Service", () => {
 		await petsRepository.create({
 			name: "John Doe",
 			city: "São Paulo",
-			age: "PUPPY",
-			energy: "LOW",
-			size: "SMALL",
-			independence: "LOW",
+			age: PetAge.PUPPY,
+			energy: PetEnergy.LOW,
+			size: PetSize.SMALL,
+			independence: PetIndependence.LOW,
 			organizationId: "1",
 		});
 
 		const pet2 = await petsRepository.create({
 			name: "John Doe",
 			city: "São Paulo",
-			age: "PUPPY",
-			energy: "LOW",
-			size: "SMALL",
-			independence: "HIGH",
+			age: PetAge.PUPPY,
+			energy: PetEnergy.LOW,
+			size: PetSize.SMALL,
+			independence: PetIndependence.HIGH,
 			organizationId: "1",
 		});
 
 		const { pets } = await sut.execute({
 			city: "São Paulo",
-			petIndependence: "HIGH",
+			petIndependence: PetIndependence.HIGH,
 		});
 
 		expect(pets).toHaveLength(1);
@@ -171,28 +171,28 @@ describe("Create Pet Service", () => {
 		await petsRepository.create({
 			name: "John Doe",
 			city: "São Paulo",
-			age: "PUPPY",
-			energy: "LOW",
-			size: "SMALL",
-			independence: "LOW",
+			age: PetAge.PUPPY,
+			energy: PetEnergy.LOW,
+			size: PetSize.SMALL,
+			independence: PetIndependence.LOW,
 			organizationId: "1",
 		});
 
 		const pet2 = await petsRepository.create({
 			name: "John Doe",
 			city: "São Paulo",
-			age: "PUPPY",
-			energy: "LOW",
-			size: "SMALL",
-			independence: "HIGH",
+			age: PetAge.PUPPY,
+			energy: PetEnergy.LOW,
+			size: PetSize.SMALL,
+			independence: PetIndependence.HIGH,
 			organizationId: "1",
 		});
 
 		const { pets } = await sut.execute({
 			city: "São Paulo",
-			petSize: "SMALL",
-			petEnergy: "LOW",
-			petIndependence: "HIGH",
+			petSize: PetSize.SMALL,
+			petEnergy: PetEnergy.LOW,
+			petIndependence: PetIndependence.HIGH,
 		});
 
 		expect(pets).toHaveLength(1);

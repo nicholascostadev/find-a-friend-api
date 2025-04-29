@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import { ResourceNotFoundException } from "@/exceptions/resource-not-found-exception";
 import type { Pet, Prisma } from "@prisma/client";
 import type {
 	FindManyByFiltersParams,
@@ -63,5 +64,17 @@ export class InMemoryPetsRepository implements PetsRepository {
 		this.items.push(pet);
 
 		return pet;
+	}
+
+	async updateAdoptmentDate(petId: string, adoptedAt: Date | null) {
+		const petIndex = this.items.findIndex((item) => item.id === petId);
+
+		if (petIndex === -1) {
+			throw new ResourceNotFoundException("Pet not found");
+		}
+
+		this.items[petIndex].adopted_at = adoptedAt;
+
+		return this.items[petIndex];
 	}
 }
