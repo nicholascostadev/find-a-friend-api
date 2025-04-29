@@ -1,7 +1,18 @@
+import { randomUUID } from "node:crypto";
 import type { Organization, Prisma } from "@prisma/client";
 import type { OrganizationsRepository } from "../organizations-repository";
 export class InMemoryOrganizationsRepository implements OrganizationsRepository {
   items: Organization[] = [];
+
+  async findById(id: string) {
+    const organization = this.items.find((item) => item.id === id);
+
+    if (!organization) {
+      return null;
+    }
+
+    return organization;
+  }
 
   async findByEmail(email: string) {
     const organization = this.items.find((item) => item.email === email);
@@ -15,7 +26,7 @@ export class InMemoryOrganizationsRepository implements OrganizationsRepository 
 
 	async create(data: Prisma.OrganizationCreateInput) {
     const organization = {
-      id: "1",
+      id: data?.id ?? randomUUID(),
       name: data.name,
       email: data.email,
       password_hash: data.password_hash,

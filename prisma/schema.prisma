@@ -35,9 +35,11 @@ enum PetAge {
 }
 
 enum PetEnergy {
+  VERY_LOW
   LOW
   MEDIUM
   HIGH
+  VERY_HIGH
 }
 
 enum PetSize {
@@ -54,6 +56,7 @@ enum PetIndependence {
 
 model Pet {
   id   String @id @default(uuid())
+  name String
   city String
 
   age          PetAge
