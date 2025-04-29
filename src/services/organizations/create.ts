@@ -13,7 +13,7 @@ interface CreateOrganizationServiceRequest {
 }
 
 interface CreateOrganizationServiceResponse {
-	organization: Organization;
+	organization: Omit<Organization, "password_hash">;
 }
 
 export class CreateOrganizationService {
@@ -40,8 +40,10 @@ export class CreateOrganizationService {
 			zip_code: data.zipCode,
 		});
 
+		const { password_hash, ...organizationWithoutPassword } = organization;
+
 		return {
-			organization,
+			organization: organizationWithoutPassword,
 		};
 	}
 }
