@@ -9,7 +9,7 @@
 
 ### Business Rules
 
-- [ ] To list pets, we must provide the city
+- [x] To list pets, we must provide the city
 - [x] An ORG needs to have an address and a WhatsApp number
 - [x] A pet must be linked to an ORG
 - [ ] The user who wants to adopt will contact the ORG via WhatsApp
