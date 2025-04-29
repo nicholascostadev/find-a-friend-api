@@ -2,6 +2,27 @@
 
 A RESTful API for pet adoption services, connecting people with pets available for adoption.
 
+## Table of Contents
+
+- [Technologies](#technologies)
+- [Prerequisites](#prerequisites)
+- [Getting Started](#getting-started)
+  - [Installation](#installation)
+  - [Running the Application](#running-the-application)
+  - [Building for Production](#building-for-production)
+- [Testing](#testing)
+  - [Running Unit Tests](#running-unit-tests)
+  - [Running Unit Tests in Watch Mode](#running-unit-tests-in-watch-mode)
+  - [Running E2E Tests](#running-e2e-tests)
+  - [Running E2E Tests in Watch Mode](#running-e2e-tests-in-watch-mode)
+  - [Prisma Test Environment](#prisma-test-environment)
+- [Project Structure](#project-structure)
+- [API Documentation](#api-documentation)
+- [Database Schema](#database-schema)
+- [Requirements](#requirements)
+  - [Application Rules](#application-rules)
+  - [Business Rules](#business-rules)
+
 ## Technologies
 
 - **Node.js** - JavaScript runtime
@@ -181,7 +202,7 @@ The application uses a PostgreSQL database with the following main entities:
 - Pets - animals available for adoption
 - Pet Requirements - specific requirements for adopting a pet
 
-## Rules
+## Requirements
 
 ### Application Rules
 
