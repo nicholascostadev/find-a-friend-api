@@ -1,11 +1,16 @@
 import fastify from "fastify";
 
+import fastifyJwt from "@fastify/jwt";
 import { ZodError } from "zod";
 import { Exception } from "./exceptions/exception";
 import { env } from "./lib/env";
 
 const app = fastify({
   logger: env.NODE_ENV === "development"
+})
+
+app.register(fastifyJwt, {
+	secret: env.JWT_SECRET,
 })
 
 app.listen({ port: env.PORT }, (err) => {
