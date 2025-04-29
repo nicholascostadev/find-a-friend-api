@@ -1,6 +1,12 @@
 import { app } from "@/app";
 import { createOrganizationAndAuthenticate } from "@/http/tests/utils/createOrganizationAndAuthenticate";
-import type { Organization } from "@prisma/client";
+import {
+	type Organization,
+	PetAge,
+	PetEnergy,
+	PetIndependence,
+	PetSize,
+} from "@prisma/client";
 import request from "supertest";
 
 describe("Create Pet (e2e)", () => {
@@ -24,10 +30,10 @@ describe("Create Pet (e2e)", () => {
 			.send({
 				name: "John Doe",
 				city: "São Paulo",
-				age: "PUPPY",
-				energy: "LOW",
-				size: "SMALL",
-				independence: "LOW",
+				age: PetAge.PUPPY,
+				energy: PetEnergy.LOW,
+				size: PetSize.SMALL,
+				independence: PetIndependence.LOW,
 			})
 			.set("Authorization", `Bearer ${token}`);
 
@@ -63,10 +69,10 @@ describe("Create Pet (e2e)", () => {
 			.post("/pets")
 			.send({
 				name: "John Doe",
-				age: "PUPPY",
-				energy: "LOW",
-				size: "SMALL",
-				independence: "LOW",
+				age: PetAge.PUPPY,
+				energy: PetEnergy.LOW,
+				size: PetSize.SMALL,
+				independence: PetIndependence.LOW,
 			})
 			.set("Authorization", `Bearer ${token}`);
 
@@ -79,9 +85,9 @@ describe("Create Pet (e2e)", () => {
 			.send({
 				name: "John Doe",
 				city: "São Paulo",
-				energy: "LOW",
-				size: "SMALL",
-				independence: "LOW",
+				energy: PetEnergy.LOW,
+				size: PetSize.SMALL,
+				independence: PetIndependence.LOW,
 			})
 			.set("Authorization", `Bearer ${token}`);
 
@@ -94,9 +100,9 @@ describe("Create Pet (e2e)", () => {
 			.send({
 				name: "John Doe",
 				city: "São Paulo",
-				age: "PUPPY",
-				size: "SMALL",
-				independence: "LOW",
+				age: PetAge.PUPPY,
+				size: PetSize.SMALL,
+				independence: PetIndependence.LOW,
 			})
 			.set("Authorization", `Bearer ${token}`);
 
@@ -109,9 +115,9 @@ describe("Create Pet (e2e)", () => {
 			.send({
 				name: "John Doe",
 				city: "São Paulo",
-				age: "PUPPY",
-				energy: "LOW",
-				independence: "LOW",
+				age: PetAge.PUPPY,
+				energy: PetEnergy.LOW,
+				independence: PetIndependence.LOW,
 			})
 			.set("Authorization", `Bearer ${token}`);
 
@@ -124,9 +130,9 @@ describe("Create Pet (e2e)", () => {
 			.send({
 				name: "John Doe",
 				city: "São Paulo",
-				age: "PUPPY",
-				energy: "LOW",
-				size: "SMALL",
+				age: PetAge.PUPPY,
+				energy: PetEnergy.LOW,
+				size: PetSize.SMALL,
 			})
 			.set("Authorization", `Bearer ${token}`);
 
@@ -140,9 +146,9 @@ describe("Create Pet (e2e)", () => {
 				name: "John Doe",
 				city: "São Paulo",
 				age: "INVALID_AGE",
-				energy: "LOW",
-				size: "SMALL",
-				independence: "LOW",
+				energy: PetEnergy.LOW,
+				size: PetSize.SMALL,
+				independence: PetIndependence.LOW,
 			})
 			.set("Authorization", `Bearer ${token}`);
 
@@ -155,10 +161,10 @@ describe("Create Pet (e2e)", () => {
 			.send({
 				name: "John Doe",
 				city: "São Paulo",
-				age: "PUPPY",
+				age: PetAge.PUPPY,
 				energy: "INVALID_ENERGY",
-				size: "SMALL",
-				independence: "LOW",
+				size: PetSize.SMALL,
+				independence: PetIndependence.LOW,
 			})
 			.set("Authorization", `Bearer ${token}`);
 
@@ -171,10 +177,10 @@ describe("Create Pet (e2e)", () => {
 			.send({
 				name: "John Doe",
 				city: "São Paulo",
-				age: "PUPPY",
-				energy: "LOW",
+				age: PetAge.PUPPY,
+				energy: PetEnergy.LOW,
 				size: "INVALID_SIZE",
-				independence: "LOW",
+				independence: PetIndependence.LOW,
 			})
 			.set("Authorization", `Bearer ${token}`);
 
@@ -187,9 +193,9 @@ describe("Create Pet (e2e)", () => {
 			.send({
 				name: "John Doe",
 				city: "São Paulo",
-				age: "PUPPY",
-				energy: "LOW",
-				size: "SMALL",
+				age: PetAge.PUPPY,
+				energy: PetEnergy.LOW,
+				size: PetSize.SMALL,
 				independence: "INVALID_INDEPENDENCE",
 			})
 			.set("Authorization", `Bearer ${token}`);
