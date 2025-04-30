@@ -1,6 +1,13 @@
 import fastify from "fastify";
 
 import fastifyJwt from "@fastify/jwt";
+import fastifySwagger from "@fastify/swagger";
+import fastifySwaggerUi from "@fastify/swagger-ui";
+import {
+	jsonSchemaTransform,
+	serializerCompiler,
+	validatorCompiler,
+} from "fastify-type-provider-zod";
 import { ZodError } from "zod";
 import { Exception } from "./exceptions/exception";
 import { organizationRoutes } from "./http/controllers/organization/routes";
@@ -9,6 +16,25 @@ import { env } from "./lib/env";
 
 export const app = fastify({
 	logger: env.NODE_ENV === "development",
+});
+
+app.setValidatorCompiler(validatorCompiler);
+app.setSerializerCompiler(serializerCompiler);
+
+app.register(fastifySwagger, {
+	openapi: {
+		info: {
+			title: "SampleApi",
+			description: "Sample backend service",
+			version: "1.0.0",
+		},
+		servers: [],
+	},
+	transform: jsonSchemaTransform,
+});
+
+app.register(fastifySwaggerUi, {
+	routePrefix: "/documentation",
 });
 
 app.register(fastifyJwt, {

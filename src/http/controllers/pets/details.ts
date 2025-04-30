@@ -2,15 +2,15 @@ import { makeDetailsPetService } from "@/services/factories/make-details-pet-ser
 import type { FastifyReply, FastifyRequest } from "fastify";
 import z from "zod";
 
+export const detailsPetParamsSchema = z.object({
+	id: z.string(),
+});
+
 export const detailsPetController = async (
 	request: FastifyRequest,
 	reply: FastifyReply,
 ) => {
-	const paramsSchema = z.object({
-		id: z.string(),
-	});
-
-	const { id } = paramsSchema.parse(request.params);
+	const { id } = detailsPetParamsSchema.parse(request.params);
 
 	const detailsPetService = makeDetailsPetService();
 

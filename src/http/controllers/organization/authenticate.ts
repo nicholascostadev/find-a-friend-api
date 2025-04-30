@@ -2,16 +2,16 @@ import { makeAuthenticateOrganizationService } from "@/services/factories/make-a
 import type { FastifyReply, FastifyRequest } from "fastify";
 import z from "zod";
 
+export const authenticateOrganizationBodySchema = z.object({
+	email: z.string().email(),
+	password: z.string(),
+});
+
 export async function authenticateOrganizationController(
 	request: FastifyRequest,
 	reply: FastifyReply,
 ) {
-	const authenticateOrganizationSchema = z.object({
-		email: z.string().email(),
-		password: z.string(),
-	});
-
-	const { email, password } = authenticateOrganizationSchema.parse(
+	const { email, password } = authenticateOrganizationBodySchema.parse(
 		request.body,
 	);
 

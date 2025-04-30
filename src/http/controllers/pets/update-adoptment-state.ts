@@ -2,19 +2,19 @@ import { makeUpdateAdoptmentDateService } from "@/services/factories/make-update
 import type { FastifyReply, FastifyRequest } from "fastify";
 import z from "zod";
 
+export const updateAdoptmentStateParamsSchema = z.object({
+	id: z.string(),
+});
+
+export const updateAdoptmentStateBodySchema = z.object({
+	adopted: z.boolean(),
+});
+
 export async function updateAdoptmentState(
 	request: FastifyRequest,
 	reply: FastifyReply,
 ) {
-	const paramsSchema = z.object({
-		id: z.string(),
-	});
-
-	const updateAdoptmentStateBodySchema = z.object({
-		adopted: z.boolean(),
-	});
-
-	const { id } = paramsSchema.parse(request.params);
+	const { id } = updateAdoptmentStateParamsSchema.parse(request.params);
 	const { adopted } = updateAdoptmentStateBodySchema.parse(request.body);
 
 	const updateAdoptmentStateService = makeUpdateAdoptmentDateService();

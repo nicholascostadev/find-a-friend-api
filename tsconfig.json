@@ -11,10 +11,11 @@
 			"@/*": ["./src/*"]
 		},
 		"strict": true,
+		"strictNullChecks": true,
 		"esModuleInterop": true,
 		"skipLibCheck": true,
 		"moduleResolution": "node16",
-		"types": ["vitest/globals"]
+		"types": ["vitest/globals"],
 	},
 	"include": ["src/**/*.ts", "src/**/*.spec.ts"]
 }
