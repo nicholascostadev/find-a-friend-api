@@ -1,8 +1,10 @@
+import { ExceptionSchema } from "@/exceptions/exception";
+import { OrganizationSchema } from "@/http/models/organization";
 import { makeCreateOrganizationService } from "@/services/factories/make-create-organization-service";
 import type { FastifyReply, FastifyRequest } from "fastify";
 import z from "zod";
 
-export const createOrganizationBodySchema = z.object({
+export const CreateOrganizationBodySchema = z.object({
 	name: z.string().min(3, "Name must be at least 3 characters"),
 	email: z.string().email(),
 	password: z
@@ -27,12 +29,35 @@ export const createOrganizationBodySchema = z.object({
 		.regex(/^\d{8}$/, "Zip code must be a valid CEP with 8 digits"),
 });
 
+type CreateOrganizationBody = z.infer<typeof CreateOrganizationBodySchema>;
+
+export const CreateOrganizationResponseSchema = {
+	201: z.object({
+		organization: OrganizationSchema,
+	}),
+	401: ExceptionSchema.describe("Unauthorized"),
+} as const;
+
+type CreateOrganizationReplyType = {
+	[statusCode in keyof typeof CreateOrganizationResponseSchema]: z.infer<
+		(typeof CreateOrganizationResponseSchema)[statusCode]
+	>;
+};
+
+export type CreateOrganizationRequest = FastifyRequest<{
+	Body: CreateOrganizationBody;
+	Reply: CreateOrganizationReplyType;
+}>;
+
+export type CreateOrganizationReply = FastifyReply<{
+	Reply: CreateOrganizationReplyType;
+}>;
+
 export async function createOrganizationController(
-	request: FastifyRequest,
-	reply: FastifyReply,
+	request: CreateOrganizationRequest,
+	reply: CreateOrganizationReply,
 ) {
-	const { name, email, password, address, whatsapp, zipCode } =
-		createOrganizationBodySchema.parse(request.body);
+	const { name, email, password, address, whatsapp, zipCode } = request.body;
 
 	const createOrganizationService = makeCreateOrganizationService();
 

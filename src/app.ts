@@ -1,9 +1,12 @@
+import cors from "@fastify/cors";
 import fastify from "fastify";
 
 import fastifyJwt from "@fastify/jwt";
 import fastifySwagger from "@fastify/swagger";
 import fastifySwaggerUi from "@fastify/swagger-ui";
 import {
+	hasZodFastifySchemaValidationErrors,
+	isResponseSerializationError,
 	jsonSchemaTransform,
 	serializerCompiler,
 	validatorCompiler,
@@ -18,23 +21,54 @@ export const app = fastify({
 	logger: env.NODE_ENV === "development",
 });
 
+app.register(cors, {
+	origin: "*",
+	methods: ["GET", "POST", "PUT", "DELETE"],
+	allowedHeaders: ["Authorization", "Content-Type"],
+	credentials: true,
+});
+
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
 
 app.register(fastifySwagger, {
 	openapi: {
 		info: {
-			title: "SampleApi",
-			description: "Sample backend service",
+			title: "Find a friend API",
+			description: "API for the Find a friend project",
 			version: "1.0.0",
 		},
-		servers: [],
+		servers: [
+			{
+				url: "http://localhost:8080",
+				description: "Local",
+			},
+		],
+		tags: [
+			{
+				name: "organization",
+				description: "Organization related endpoints",
+			},
+			{
+				name: "pets",
+				description: "Pets related endpoints",
+			},
+		],
+		components: {
+			securitySchemes: {
+				bearerAuth: {
+					type: "http",
+					scheme: "bearer",
+					bearerFormat: "JWT",
+				},
+			},
+		},
 	},
 	transform: jsonSchemaTransform,
 });
 
 app.register(fastifySwaggerUi, {
-	routePrefix: "/documentation",
+	routePrefix: "/docs",
 });
 
 app.register(fastifyJwt, {
@@ -56,7 +90,33 @@ if (require.main === module) {
 	});
 }
 
-app.setErrorHandler((error, _, reply) => {
+app.setErrorHandler((error, request, reply) => {
+	if (hasZodFastifySchemaValidationErrors(error)) {
+		return reply.code(400).send({
+			error: "Response Validation Error",
+			message: "Request doesn't match the schema",
+			statusCode: 400,
+			details: {
+				issues: error.validation,
+				method: request.method,
+				url: request.url,
+			},
+		});
+	}
+
+	if (isResponseSerializationError(error)) {
+		return reply.code(500).send({
+			error: "Internal Server Error",
+			message: "Response doesn't match the schema",
+			statusCode: 500,
+			details: {
+				issues: error.cause.issues,
+				method: error.method,
+				url: error.url,
+			},
+		});
+	}
+
 	if (error instanceof ZodError) {
 		return reply
 			.status(400)

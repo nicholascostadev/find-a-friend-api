@@ -1,25 +1,23 @@
-import { ExceptionSchema } from "@/exceptions/exception";
-import { OrganizationSchema } from "@/http/models/organization";
-import type { FastifyInstance } from "fastify";
+import type { FastifyTypedInstance } from "@/@types/fasfify";
 import {
-	authenticateOrganizationBodySchema,
+	AuthenticateOrganizationBodySchema,
+	AuthenticateResponseSchema,
 	authenticateOrganizationController,
 } from "./authenticate";
 import {
-	createOrganizationBodySchema,
+	CreateOrganizationBodySchema,
+	CreateOrganizationResponseSchema,
 	createOrganizationController,
 } from "./create";
 
-export async function organizationRoutes(app: FastifyInstance) {
-	app.withTypeProvider().route({
+export async function organizationRoutes(app: FastifyTypedInstance) {
+	app.route({
 		method: "POST",
 		url: "/organization",
 		schema: {
-			body: createOrganizationBodySchema,
-			response: {
-				201: OrganizationSchema,
-				401: ExceptionSchema.describe("Unauthorized"),
-			},
+			tags: ["organization"],
+			body: CreateOrganizationBodySchema,
+			response: CreateOrganizationResponseSchema,
 		},
 		handler: createOrganizationController,
 	});
@@ -27,11 +25,9 @@ export async function organizationRoutes(app: FastifyInstance) {
 		method: "POST",
 		url: "/organization/authenticate",
 		schema: {
-			body: authenticateOrganizationBodySchema,
-			response: {
-				200: OrganizationSchema,
-				401: ExceptionSchema.describe("Unauthorized"),
-			},
+			tags: ["organization"],
+			body: AuthenticateOrganizationBodySchema,
+			response: AuthenticateResponseSchema,
 		},
 		handler: authenticateOrganizationController,
 	});

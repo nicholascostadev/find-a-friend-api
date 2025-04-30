@@ -6,9 +6,7 @@ export const OrganizationSchema = z
 		name: z.string(),
 		email: z.string().email(),
 		address: z.string(),
-		zipCode: z.string(),
+		zip_code: z.string(),
 		whatsapp: z.string(),
-		createdAt: z.string().datetime(),
-		updatedAt: z.string().datetime().nullable(),
 	})
 	.describe("Organization");

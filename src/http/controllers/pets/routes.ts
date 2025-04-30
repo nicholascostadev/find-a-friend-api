@@ -1,65 +1,81 @@
-import { ExceptionSchema } from "@/exceptions/exception";
+import type { FastifyTypedInstance } from "@/@types/fasfify";
 import { jwtMiddleware } from "@/http/middlewares/jwt-middleware";
-import { PetSchema } from "@/http/models/pet";
-import type { FastifyInstance } from "fastify";
-import { createPetBodySchema, createPetController } from "./create";
-import { detailsPetController, detailsPetParamsSchema } from "./details";
-import { listPetsController, listPetsQuerySchema } from "./list";
 import {
+	CreatePetBodySchema,
+	CreatePetResponseSchema,
+	createPetController,
+} from "./create";
+import {
+	DetailsPetParamsSchema,
+	DetailsPetResponseSchema,
+	detailsPetController,
+} from "./details";
+import {
+	ListPetsQuerySchema,
+	ListPetsResponseSchema,
+	listPetsController,
+} from "./list";
+import {
+	UpdateAdoptmentStateBodySchema,
+	UpdateAdoptmentStateParamsSchema,
+	UpdateAdoptmentStateResponseSchema,
 	updateAdoptmentState,
-	updateAdoptmentStateBodySchema,
-	updateAdoptmentStateParamsSchema,
 } from "./update-adoptment-state";
 
-export async function petsRoutes(app: FastifyInstance) {
-	app.withTypeProvider().route({
+export async function petsRoutes(app: FastifyTypedInstance) {
+	app.route({
+		method: "GET",
+		url: "/pets",
+		schema: {
+			tags: ["pets"],
+			querystring: ListPetsQuerySchema,
+			response: ListPetsResponseSchema,
+		},
+		handler: listPetsController,
+	});
+	app.route({
+		method: "GET",
+		url: "/pets/:id",
+		schema: {
+			tags: ["pets"],
+			params: DetailsPetParamsSchema,
+			response: DetailsPetResponseSchema,
+		},
+		handler: detailsPetController,
+	});
+
+	// Authenticated routes
+
+	app.route({
 		method: "POST",
 		url: "/pets",
 		schema: {
-			body: createPetBodySchema,
-			response: {
-				201: PetSchema,
-				401: ExceptionSchema.describe("Unauthorized"),
-			},
+			tags: ["pets"],
+			body: CreatePetBodySchema,
+			response: CreatePetResponseSchema,
+			security: [
+				{
+					bearerAuth: [],
+				},
+			],
 		},
 		preHandler: [jwtMiddleware],
 		handler: createPetController,
 	});
-	app.withTypeProvider().route({
-		method: "GET",
-		url: "/pets",
-		schema: {
-			querystring: listPetsQuerySchema,
-			response: {
-				200: PetSchema.array().describe("Pets"),
-				401: ExceptionSchema.describe("Unauthorized"),
-			},
-		},
-		handler: listPetsController,
-	});
-	app.withTypeProvider().route({
-		method: "GET",
-		url: "/pets/:id",
-		schema: {
-			params: detailsPetParamsSchema,
-			response: {
-				200: PetSchema,
-				404: ExceptionSchema.describe("Not found"),
-			},
-		},
-		handler: detailsPetController,
-	});
-	app.withTypeProvider().route({
+
+	app.route({
 		method: "PUT",
 		url: "/pets/:id/adoptment-state",
 		schema: {
-			params: updateAdoptmentStateParamsSchema,
-			body: updateAdoptmentStateBodySchema,
-			response: {
-				204: ExceptionSchema.describe("No content"),
-				401: ExceptionSchema.describe("Unauthorized"),
-				404: ExceptionSchema.describe("Not found"),
-			},
+			tags: ["pets"],
+			params: UpdateAdoptmentStateParamsSchema,
+			body: UpdateAdoptmentStateBodySchema,
+			response: UpdateAdoptmentStateResponseSchema,
+			security: [
+				{
+					bearerAuth: [],
+				},
+			],
 		},
 		preHandler: [jwtMiddleware],
 		handler: updateAdoptmentState,

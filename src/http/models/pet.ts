@@ -9,8 +9,6 @@ export const PetSchema = z
 		energy: z.nativeEnum(PetEnergy),
 		size: z.nativeEnum(PetSize),
 		independence: z.nativeEnum(PetIndependence),
-		adoptedAt: z.string().nullable(),
-		createdAt: z.string().datetime(),
-		updatedAt: z.string().datetime().nullable(),
+		adopted_at: z.date().nullable(),
 	})
 	.describe("Pet");
